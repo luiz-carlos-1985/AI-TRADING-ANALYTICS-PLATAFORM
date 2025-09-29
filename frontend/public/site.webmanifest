@@ -1,0 +1,14 @@
+{
+  "name": "AI Trading Analytics Platform",
+  "short_name": "AI Trading",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ],
+  "theme_color": "#0ea5e9",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}

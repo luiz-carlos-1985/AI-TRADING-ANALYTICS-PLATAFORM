@@ -1,0 +1,231 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  username  String   @unique
+  password  String
+  firstName String?
+  lastName  String?
+  avatar    String?
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  portfolios Portfolio[]
+  alerts     Alert[]
+  trades     Trade[]
+  sessions   Session[]
+
+  @@map("users")
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model Cryptocurrency {
+  id          String  @id @default(cuid())
+  symbol      String  @unique
+  name        String
+  coinGeckoId String? @unique
+  isActive    Boolean @default(true)
+  logoUrl     String?
+  description String?
+
+  // Relations
+  prices      Price[]
+  portfolios  PortfolioAsset[]
+  alerts      Alert[]
+  trades      Trade[]
+  sentiments  Sentiment[]
+
+  @@map("cryptocurrencies")
+}
+
+model Price {
+  id               String   @id @default(cuid())
+  cryptoId         String
+  price            Decimal  @db.Decimal(20, 8)
+  marketCap        Decimal? @db.Decimal(20, 2)
+  volume24h        Decimal? @db.Decimal(20, 2)
+  change24h        Decimal? @db.Decimal(10, 4)
+  changePercent24h Decimal? @db.Decimal(10, 4)
+  timestamp        DateTime @default(now())
+
+  // Relations
+  cryptocurrency Cryptocurrency @relation(fields: [cryptoId], references: [id], onDelete: Cascade)
+
+  @@map("prices")
+  @@index([cryptoId, timestamp])
+}
+
+model Portfolio {
+  id        String   @id @default(cuid())
+  userId    String
+  name      String
+  isDefault Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  user   User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  assets PortfolioAsset[]
+
+  @@map("portfolios")
+}
+
+model PortfolioAsset {
+  id          String  @id @default(cuid())
+  portfolioId String
+  cryptoId    String
+  quantity    Decimal @db.Decimal(20, 8)
+  avgBuyPrice Decimal @db.Decimal(20, 8)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  portfolio      Portfolio      @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  cryptocurrency Cryptocurrency @relation(fields: [cryptoId], references: [id], onDelete: Cascade)
+
+  @@map("portfolio_assets")
+  @@unique([portfolioId, cryptoId])
+}
+
+model Alert {
+  id          String      @id @default(cuid())
+  userId      String
+  cryptoId    String
+  type        AlertType
+  condition   AlertCondition
+  targetPrice Decimal     @db.Decimal(20, 8)
+  isActive    Boolean     @default(true)
+  isTriggered Boolean     @default(false)
+  message     String?
+  createdAt   DateTime    @default(now())
+  triggeredAt DateTime?
+
+  // Relations
+  user           User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  cryptocurrency Cryptocurrency @relation(fields: [cryptoId], references: [id], onDelete: Cascade)
+
+  @@map("alerts")
+}
+
+model Trade {
+  id        String    @id @default(cuid())
+  userId    String
+  cryptoId  String
+  type      TradeType
+  quantity  Decimal   @db.Decimal(20, 8)
+  price     Decimal   @db.Decimal(20, 8)
+  fee       Decimal?  @db.Decimal(20, 8)
+  total     Decimal   @db.Decimal(20, 8)
+  notes     String?
+  createdAt DateTime  @default(now())
+
+  // Relations
+  user           User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  cryptocurrency Cryptocurrency @relation(fields: [cryptoId], references: [id], onDelete: Cascade)
+
+  @@map("trades")
+}
+
+model Sentiment {
+  id          String          @id @default(cuid())
+  cryptoId    String
+  source      SentimentSource
+  score       Decimal         @db.Decimal(3, 2) // -1.00 to 1.00
+  confidence  Decimal         @db.Decimal(3, 2) // 0.00 to 1.00
+  title       String?
+  content     String?
+  url         String?
+  publishedAt DateTime?
+  createdAt   DateTime        @default(now())
+
+  // Relations
+  cryptocurrency Cryptocurrency @relation(fields: [cryptoId], references: [id], onDelete: Cascade)
+
+  @@map("sentiments")
+  @@index([cryptoId, createdAt])
+}
+
+model NewsArticle {
+  id          String   @id @default(cuid())
+  title       String
+  content     String?
+  summary     String?
+  url         String   @unique
+  source      String
+  author      String?
+  publishedAt DateTime
+  sentiment   Decimal? @db.Decimal(3, 2)
+  confidence  Decimal? @db.Decimal(3, 2)
+  keywords    String[]
+  createdAt   DateTime @default(now())
+
+  @@map("news_articles")
+  @@index([publishedAt])
+}
+
+model MarketData {
+  id                String   @id @default(cuid())
+  totalMarketCap    Decimal  @db.Decimal(20, 2)
+  total24hVolume    Decimal  @db.Decimal(20, 2)
+  btcDominance      Decimal  @db.Decimal(5, 2)
+  ethDominance      Decimal  @db.Decimal(5, 2)
+  marketCapChange   Decimal  @db.Decimal(10, 4)
+  volumeChange      Decimal  @db.Decimal(10, 4)
+  fearGreedIndex    Int?
+  timestamp         DateTime @default(now())
+
+  @@map("market_data")
+  @@index([timestamp])
+}
+
+// Enums
+enum AlertType {
+  PRICE_ABOVE
+  PRICE_BELOW
+  VOLUME_SPIKE
+  SENTIMENT_CHANGE
+}
+
+enum AlertCondition {
+  GREATER_THAN
+  LESS_THAN
+  EQUALS
+}
+
+enum TradeType {
+  BUY
+  SELL
+}
+
+enum SentimentSource {
+  NEWS
+  TWITTER
+  REDDIT
+  TELEGRAM
+  AI_ANALYSIS
+}
