@@ -249,4 +249,17 @@ MIT License - see [LICENSE](./LICENSE) file for details.
 
 ---
 
+Screenshots:
+<img width="1846" height="955" alt="image" src="https://github.com/user-attachments/assets/6a231995-0fb3-48c8-9365-3c73a7bb0514" />
+
+<img width="1834" height="1042" alt="image" src="https://github.com/user-attachments/assets/d2a9e166-d3ba-4482-8d91-dd85592db68f" />
+
+<img width="1845" height="1036" alt="image" src="https://github.com/user-attachments/assets/85e552d8-3d0c-4084-8a62-6748b3f9ff0d" />
+
+<img width="1844" height="1036" alt="image" src="https://github.com/user-attachments/assets/98017f96-f863-4fb2-8816-b757895d053a" />
+
+<img width="1858" height="806" alt="image" src="https://github.com/user-attachments/assets/922dac6f-52f2-4c12-9a03-c454275fb55e" />
+
+<img width="1848" height="928" alt="image" src="https://github.com/user-attachments/assets/b5769def-e591-4442-a6e7-3453dff240f9" />
+
 **Built with ❤️ using modern technologies for the future of trading analytics.**
