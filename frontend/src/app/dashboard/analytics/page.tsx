@@ -52,15 +52,15 @@ export default function AnalyticsPage() {
   return (
     <div className="space-y-8">
       {/* AI Analytics Overview */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
         <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-2xl p-6">
           <div className="flex items-center space-x-3 mb-4">
             <div className="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center">
               <Brain className="w-6 h-6 text-purple-400" />
             </div>
-            <div>
+            <div className="min-w-0 flex-1">
               <p className="text-gray-400 text-sm">AI Confidence</p>
-              <p className="text-2xl font-bold">{data.sentiment.overall}%</p>
+              <p className="text-lg md:text-2xl font-bold truncate">{data.sentiment.overall}%</p>
             </div>
           </div>
           <div className="w-full bg-gray-700 rounded-full h-2">
@@ -73,9 +73,9 @@ export default function AnalyticsPage() {
             <div className="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center">
               <TrendingUp className="w-6 h-6 text-green-400" />
             </div>
-            <div>
+            <div className="min-w-0 flex-1">
               <p className="text-gray-400 text-sm">Fear & Greed</p>
-              <p className="text-2xl font-bold">{data.marketMetrics.fearGreed}</p>
+              <p className="text-lg md:text-2xl font-bold truncate">{data.marketMetrics.fearGreed}</p>
             </div>
           </div>
           <p className="text-sm text-green-400">Greed Zone</p>
@@ -86,9 +86,9 @@ export default function AnalyticsPage() {
             <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center">
               <Activity className="w-6 h-6 text-blue-400" />
             </div>
-            <div>
+            <div className="min-w-0 flex-1">
               <p className="text-gray-400 text-sm">Volatility</p>
-              <p className="text-2xl font-bold">{data.marketMetrics.volatility}%</p>
+              <p className="text-lg md:text-2xl font-bold truncate">{data.marketMetrics.volatility}%</p>
             </div>
           </div>
           <p className="text-sm text-blue-400">Low</p>
@@ -99,9 +99,9 @@ export default function AnalyticsPage() {
             <div className="w-12 h-12 bg-orange-500/20 rounded-xl flex items-center justify-center">
               <BarChart3 className="w-6 h-6 text-orange-400" />
             </div>
-            <div>
+            <div className="min-w-0 flex-1">
               <p className="text-gray-400 text-sm">BTC Dominance</p>
-              <p className="text-2xl font-bold">{data.marketMetrics.dominance}%</p>
+              <p className="text-lg md:text-2xl font-bold truncate">{data.marketMetrics.dominance}%</p>
             </div>
           </div>
           <p className="text-sm text-orange-400">Stable</p>

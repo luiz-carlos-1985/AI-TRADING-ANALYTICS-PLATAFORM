@@ -51,7 +51,7 @@ export default function AlertsPage() {
   return (
     <div className="space-y-8">
       {/* Alerts Overview */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
         <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-2xl p-6">
           <div className="flex items-center space-x-3 mb-4">
             <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center">
@@ -101,10 +101,10 @@ export default function AlertsPage() {
 
       {/* Create Alert Form */}
       {showForm && (
-        <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-3xl p-8">
+        <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-3xl p-6 md:p-8">
           <h3 className="text-2xl font-bold mb-6">Create New Alert</h3>
           
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-400 mb-2">Symbol</label>
               <select 
@@ -160,10 +160,10 @@ export default function AlertsPage() {
       )}
 
       {/* Alerts List */}
-      <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-3xl p-8">
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="text-2xl font-bold">Your Alerts</h3>
-          <div className="flex space-x-2">
+      <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-3xl p-6 md:p-8">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4 sm:gap-0">
+          <h3 className="text-xl md:text-2xl font-bold">Your Alerts</h3>
+          <div className="flex flex-wrap gap-2">
             <button 
               onClick={() => toast('Showing all alerts', { icon: '📄' })}
               className="px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg text-sm font-semibold transition-colors"
@@ -187,10 +187,10 @@ export default function AlertsPage() {
         
         <div className="space-y-4">
           {alerts.map((alert) => (
-            <div key={alert.id} className={`bg-gray-800/50 rounded-2xl p-6 border-l-4 ${
+            <div key={alert.id} className={`bg-gray-800/50 rounded-2xl p-4 md:p-6 border-l-4 ${
               alert.triggered ? 'border-orange-400' : alert.active ? 'border-green-400' : 'border-gray-600'
             }`}>
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-0">
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-yellow-500 rounded-xl flex items-center justify-center font-bold text-black text-sm">
                     {alert.symbol}

@@ -49,8 +49,8 @@ export const metadata: Metadata = {
     creator: '@arsmachina',
   },
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon-16x16.png',
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
     apple: '/apple-touch-icon.png',
   },
   manifest: '/site.webmanifest',

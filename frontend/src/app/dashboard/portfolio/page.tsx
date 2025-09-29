@@ -37,10 +37,10 @@ export default function PortfolioPage() {
     <div className="space-y-8">
       {/* Portfolio Summary */}
       <div className="bg-gradient-to-r from-green-600/20 to-blue-600/20 backdrop-blur-sm border border-gray-800 rounded-3xl p-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
           <div>
             <h3 className="text-lg text-gray-400 mb-2">Total Portfolio Value</h3>
-            <div className="text-4xl font-bold mb-2">${data.totalValue.toLocaleString()}</div>
+            <div className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2">${data.totalValue.toLocaleString()}</div>
             <div className="flex items-center space-x-2">
               <TrendingUp className="w-5 h-5 text-green-400" />
               <span className="text-green-400 font-semibold">+${data.dayChange.toLocaleString()}</span>
@@ -50,13 +50,13 @@ export default function PortfolioPage() {
           
           <div>
             <h3 className="text-lg text-gray-400 mb-2">24h Performance</h3>
-            <div className="text-3xl font-bold text-green-400 mb-2">+{data.dayChangePercent}%</div>
+            <div className="text-2xl sm:text-3xl font-bold text-green-400 mb-2">+{data.dayChangePercent}%</div>
             <p className="text-gray-400">Above market average</p>
           </div>
           
           <div>
             <h3 className="text-lg text-gray-400 mb-2">Active Positions</h3>
-            <div className="text-3xl font-bold mb-2">{data.positions.length}</div>
+            <div className="text-2xl sm:text-3xl font-bold mb-2">{data.positions.length}</div>
             <p className="text-gray-400">Diversified portfolio</p>
           </div>
         </div>
@@ -69,7 +69,7 @@ export default function PortfolioPage() {
         <div className="space-y-4">
           {data.positions.map((position) => (
             <div key={position.symbol} className="bg-gray-800/50 rounded-2xl p-6">
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-0">
                 <div className="flex items-center space-x-4">
                   <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-yellow-500 rounded-2xl flex items-center justify-center font-bold text-black text-lg">
                     {position.symbol.slice(0, 2)}

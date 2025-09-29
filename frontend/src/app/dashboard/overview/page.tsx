@@ -38,14 +38,14 @@ export default function OverviewPage() {
   return (
     <div className="space-y-8">
       {/* Portfolio Overview */}
-      <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 backdrop-blur-sm border border-gray-800 rounded-3xl p-8">
-        <div className="flex items-center justify-between mb-6">
+      <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 backdrop-blur-sm border border-gray-800 rounded-3xl p-6 md:p-8">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4 sm:gap-0">
           <div>
-            <h2 className="text-2xl font-bold mb-2">Portfolio Overview</h2>
+            <h2 className="text-xl md:text-2xl font-bold mb-2">Portfolio Overview</h2>
             <p className="text-gray-400">Your trading performance at a glance</p>
           </div>
-          <div className="text-right">
-            <div className="text-4xl font-bold mb-1">
+          <div className="text-left sm:text-right">
+            <div className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-1">
               ${liveData.portfolio.value.toLocaleString()}
             </div>
             <div className="flex items-center justify-end space-x-2">
@@ -56,7 +56,7 @@ export default function OverviewPage() {
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-2xl p-6">
             <div className="flex items-center space-x-3 mb-4">
               <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center">
@@ -115,11 +115,11 @@ export default function OverviewPage() {
       </div>
 
       {/* Market Overview */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2">
-          <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-3xl p-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+        <div className="md:col-span-2">
+          <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-3xl p-6 md:p-8">
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-2xl font-bold">Your Positions</h3>
+              <h3 className="text-xl md:text-2xl font-bold">Your Positions</h3>
               <button 
                 onClick={() => {
                   toast('Redirecting to full portfolio view...', {
@@ -136,7 +136,7 @@ export default function OverviewPage() {
             
             <div className="space-y-4">
               {liveData.topCoins.map((coin) => (
-                <div key={coin.symbol} className="flex items-center justify-between p-4 bg-gray-800/50 rounded-2xl hover:bg-gray-800/70 transition-colors">
+                <div key={coin.symbol} className="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-gray-800/50 rounded-2xl hover:bg-gray-800/70 transition-colors gap-4 sm:gap-0">
                   <div className="flex items-center space-x-4">
                     <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-yellow-500 rounded-xl flex items-center justify-center font-bold text-black text-sm">
                       {coin.symbol.slice(0, 2)}
@@ -147,8 +147,8 @@ export default function OverviewPage() {
                     </div>
                   </div>
                   
-                  <div className="text-right">
-                    <div className="text-xl font-bold">${coin.price.toLocaleString()}</div>
+                  <div className="text-left sm:text-right">
+                    <div className="text-lg sm:text-xl font-bold">${coin.price.toLocaleString()}</div>
                     <div className={`text-sm font-semibold flex items-center justify-end space-x-1 ${
                       coin.change > 0 ? 'text-green-400' : 'text-red-400'
                     }`}>
@@ -162,7 +162,7 @@ export default function OverviewPage() {
           </div>
         </div>
         
-        <div className="space-y-6">
+        <div className="space-y-6 mt-6 md:mt-0">
           <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-3xl p-6">
             <h3 className="text-xl font-bold mb-4">AI Market Sentiment</h3>
             <div className="space-y-4">

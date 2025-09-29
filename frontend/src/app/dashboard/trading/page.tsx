@@ -71,7 +71,7 @@ export default function TradingPage() {
   return (
     <div className="space-y-8">
       {/* Trading Overview */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
         <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-2xl p-6">
           <div className="flex items-center space-x-3 mb-4">
             <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center">
@@ -123,7 +123,7 @@ export default function TradingPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
         {/* Trading Form */}
         <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-3xl p-8">
           <h3 className="text-2xl font-bold mb-6">Place Order</h3>
@@ -210,7 +210,7 @@ export default function TradingPage() {
           <div className="space-y-4">
             {data.activeTrades.map((trade) => (
               <div key={trade.id} className="bg-gray-800/50 rounded-2xl p-6">
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-0">
                   <div className="flex items-center space-x-4">
                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center font-bold text-sm ${
                       trade.type === 'BUY' ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
@@ -267,7 +267,7 @@ export default function TradingPage() {
       <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-3xl p-8">
         <h3 className="text-2xl font-bold mb-6">AI Trading Signals</h3>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
           {data.aiSignals.map((signal) => (
             <div key={signal.symbol} className="bg-gray-800/50 rounded-2xl p-6">
               <div className="flex items-center justify-between mb-4">

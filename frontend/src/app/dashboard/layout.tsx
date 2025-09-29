@@ -63,7 +63,7 @@ export default function DashboardLayout({
       {/* Mobile sidebar */}
       <div className={`fixed inset-0 z-50 lg:hidden ${sidebarOpen ? 'block' : 'hidden'}`}>
         <div className="fixed inset-0 bg-black/50" onClick={() => setSidebarOpen(false)} />
-        <div className="fixed left-0 top-0 h-full w-64 bg-gray-900 border-r border-gray-800">
+        <div className="fixed left-0 top-0 h-full w-64 max-w-[80vw] bg-gray-900 border-r border-gray-800 overflow-y-auto">
           <div className="flex items-center justify-between p-6">
             <div className="flex items-center space-x-3">
               <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
@@ -104,7 +104,7 @@ export default function DashboardLayout({
       </div>
 
       {/* Desktop sidebar */}
-      <div className="hidden lg:fixed lg:left-0 lg:top-0 lg:h-full lg:w-64 lg:bg-gray-900 lg:border-r lg:border-gray-800 lg:block">
+      <div className="hidden lg:fixed lg:left-0 lg:top-0 lg:h-full lg:w-64 lg:bg-gray-900 lg:border-r lg:border-gray-800 lg:block lg:overflow-y-auto">
         <div className="flex items-center space-x-3 p-6">
           <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
             <Brain className="w-6 h-6 text-white" />
@@ -289,8 +289,10 @@ export default function DashboardLayout({
         </header>
 
         {/* Page content */}
-        <main className="p-6">
-          {children}
+        <main className="p-4 sm:p-6 overflow-x-hidden">
+          <div className="max-w-full">
+            {children}
+          </div>
         </main>
       </div>
 
