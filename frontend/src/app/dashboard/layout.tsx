@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { toast } from 'react-hot-toast';
+import { useUser, UserProvider } from './context/UserContext';
 import { 
   Brain, 
   BarChart3, 
@@ -27,11 +28,12 @@ const navigation = [
   { name: 'Settings', href: '/dashboard/settings', icon: Settings },
 ];
 
-export default function DashboardLayout({
+function DashboardLayoutContent({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { settings } = useUser();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
@@ -225,18 +227,22 @@ export default function DashboardLayout({
                 <div className="relative" ref={profileRef}>
                   <button 
                     onClick={() => setProfileOpen(!profileOpen)}
-                    className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center hover:scale-110 transition-transform"
+                    className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center hover:scale-110 transition-transform overflow-hidden"
                     aria-label="Open user profile menu"
                     title="Open user profile menu"
                   >
-                    <User className="w-5 h-5 text-white" />
+                    {settings.profile.photo ? (
+                      <img src={settings.profile.photo} alt="Profile" className="w-full h-full object-cover" />
+                    ) : (
+                      <User className="w-5 h-5 text-white" />
+                    )}
                   </button>
                   
                   {profileOpen && (
                     <div className="absolute right-0 mt-2 w-48 bg-gray-800 border border-gray-700 rounded-xl shadow-lg z-50">
                       <div className="p-3 border-b border-gray-700">
-                        <p className="font-semibold">John Doe</p>
-                        <p className="text-sm text-gray-400">john@example.com</p>
+                        <p className="font-semibold">{settings.profile.name}</p>
+                        <p className="text-sm text-gray-400">{settings.profile.email}</p>
                       </div>
                       <div className="py-2">
                         <button 
@@ -474,5 +480,17 @@ export default function DashboardLayout({
         </div>
       )}
     </div>
+  );
+}
+
+export default function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <UserProvider>
+      <DashboardLayoutContent>{children}</DashboardLayoutContent>
+    </UserProvider>
   );
 }
